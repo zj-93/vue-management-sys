@@ -117,7 +117,7 @@ export default {
     padding-top: 40px;
   }
 }
-/deep/ .el-menu-vertical-demo:not(.el-menu--collapse) {
+::v-deep .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
 }

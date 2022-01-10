@@ -344,7 +344,7 @@ export default {
   height: calc(100% - 30px);
   box-shadow: 0px 0px 21px 0px rgba(211, 219, 232, 0.5);
   border-radius: 4px;
-  /deep/ .el-form {
+  ::v-deep .el-form {
     height: 100%;
     .el-table {
       // border-left: 1px solid #ebeef5;
@@ -383,7 +383,7 @@ export default {
   .btn-box {
     display: inline-block;
     margin-right: 8px;
-    /deep/ .el-button {
+    ::v-deep .el-button {
       height: 32px;
       line-height: 32px;
       padding: 0 15px;
@@ -400,7 +400,7 @@ export default {
 
 .addTable {
   #bkTable {
-    /deep/ .el-form {
+    ::v-deep .el-form {
       .cell {
         height: 32px;
         line-height: 32px;

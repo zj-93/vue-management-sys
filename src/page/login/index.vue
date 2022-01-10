@@ -85,11 +85,11 @@ export default {
     &:hover {
       opacity: 1;
     }
-    /deep/ .el-form-item__label {
+    ::v-deep .el-form-item__label {
       color: #fff;
     }
     .subBtn {
-      /deep/ .el-form-item__content {
+      ::v-deep .el-form-item__content {
         position: absolute;
         right: -110px;
         top: 0;

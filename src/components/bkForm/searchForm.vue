@@ -473,21 +473,21 @@ export default {
       box-sizing: border-box;
       padding-bottom: 22px;
       vertical-align: bottom;
-      /deep/ .el-form-item {
+      ::v-deep .el-form-item {
         margin-bottom: 0;
       }
-      /deep/ .el-form-item__label {
+      ::v-deep .el-form-item__label {
         display: grid;
         height: 40px;
         line-height: 40px;
       }
-      /deep/ .el-date-editor {
+      ::v-deep .el-date-editor {
         width: 100%;
       }
-      /deep/ .el-form-item__content {
+      ::v-deep .el-form-item__content {
         min-width: 60px;
       }
-      /deep/ input[type="number"] {
+      ::v-deep input[type="number"] {
         padding-right: 10px;
       }
     }
@@ -510,7 +510,7 @@ export default {
     }
     .btn-item {
       display: inline-block;
-      /deep/ .el-form-item__content {
+      ::v-deep .el-form-item__content {
         margin: 0 !important;
       }
       .btn-box {

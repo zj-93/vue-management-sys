@@ -1,4 +1,6 @@
-import { createVuePlugin } from 'vite-plugin-vue2'
+import {
+  createVuePlugin
+} from 'vite-plugin-vue2'
 import path from "path"
 const defaultSettings = require('./src/settings.js')
 
@@ -9,6 +11,20 @@ export default {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       "@": path.resolve(__dirname, "src")
+    },
+  },
+  css: {
+    postcss: {
+      plugins: [{
+        postcssPlugin: 'internal:charset-removal',
+        AtRule: {
+          charset: (atRule) => {
+            if (atRule.name === 'charset') {
+              atRule.remove();
+            }
+          }
+        }
+      }],
     },
   },
   assetsDir: './',

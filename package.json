@@ -10,6 +10,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "css-loader": "^6.5.1",
     "less": "^4.1.2",
     "less-loader": "^5.2.0",
     "node-sass": "^4.12.0",
