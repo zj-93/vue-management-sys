@@ -31,6 +31,7 @@ const routes = [
   {
     path: '',
     component: Layout,
+    redirect: '/home',
     meta: {
       title: 'Home',
       icon: 'table'
@@ -48,15 +49,14 @@ const routes = [
   {
     path: '/example',
     component: Layout,
-    redirect: '/example/home',
     name: 'Example',
     meta: {
       title: 'Example',
       icon: 'example'
     },
     children: [{
-        path: 'form',
-        // path: 'form/:id', // 用于多tag
+        // path: 'form',
+        path: 'form/:id', // 用于多tag
         name: 'Form',
         component: () => import('@/page/form.vue'),
         meta: {

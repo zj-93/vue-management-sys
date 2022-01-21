@@ -28,6 +28,7 @@
       </el-form-item>
       <el-form-item class="subBtn">
         <el-button type="primary" @click="submitForm('ruleForm')">進 入</el-button>
+        <el-button type="primary" @click="submitSign('ruleForm')">注 册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -60,7 +61,16 @@ export default {
       let params = {
         ...this.ruleForm
       }
-      signIn(params)
+      this.$store.dispatch('Login', params).then(res => {
+        console.log(res)
+      })
+      
+    },
+    submitSign() {
+      let params = {
+        ...this.ruleForm
+      }
+      signUp(params)
     }
   },
 };

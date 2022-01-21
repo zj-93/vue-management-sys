@@ -2,7 +2,7 @@
   <div id="XTabbar" class="XTabbar-wrap" :class="{'no-tab':!menus.length}">
     <div class="tabbar-list">
       <div class="tabbar-item" :class="{active: activeFlag(item.keyPath)}" v-for="(item, index) in menus" :key="index" @click="clickMenu(item)">
-        {{item.key}}
+        <span class="menu-status"></span>{{item.key}}
         <div class="close" @click.stop="closeMenu(item, index)">×</div>
       </div>
     </div>
@@ -24,8 +24,10 @@
     methods: {
       clickMenu(item) {
         // this.currentPath = item.keyPath;
-        // this.$router.push(`${item.keyPath}`);
-        this.$router.push({name: item.key, params: {id: item.num}})
+        // this.$router.push(`${item.keyPath}`);.
+        debugger
+        // this.$router.push({name: item.key, params: {id: item.num}})
+        this.$router.push({path: item.keyPath})
       },
       closeMenu(item, index) {
         let nextPath = '';
@@ -37,7 +39,8 @@
           let idx  = index > 0 ? index - 1 : 0
           nextPath = this.menus[idx].keyPath
         } else {
-          nextPath = '/example/home';
+          this.$store.dispatch("addBarList", { keyPath: '/home', key: 'Home' });
+          nextPath = '/home';
         }
         this.$router.push(nextPath);
       },
@@ -47,6 +50,7 @@
         return (d >= 0 && str.lastIndexOf(endStr) == d)
       },
       activeFlag(path){
+        debugger
         // currentPath.indexOf(item.path) > -1
         if(path === this.currentPath) {
           return true
@@ -80,34 +84,47 @@
   .XTabbar-wrap{
     // margin-bottom: 20px;
     width: 100%;
-    height: 32px;
-    background-color: #fff;
+    height: 22px;
+    // background-color: #fff;
     .tabbar-list{
       display: flex;
-      border-bottom:1px solid rgba(229,229,229,1);
+      // border-bottom:1px solid rgba(229,229,229,1);
       .tabbar-item{
-        padding: 0 10px 0 30px;
-        line-height: 32px;
+        // padding: 0 10px 0 30px;
+        height: 22px;
+        padding: 0 8px;
+        line-height: 22px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 15px;
-        color: #838084;
-        border-right: 1px solid #e5e5e5;
-        // background-color: #e6e6e6;
-        &:first-of-type{
-          border-left: 1px solid #e5e5e5;
+        font-size: 12px;
+        color: #999999;
+        border-radius: 3px;
+        background-color: #fff;
+        margin-right: 5px;
+        .menu-status{
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          background-color: #E8EAEC;
+          border-radius: 20px;
+          margin-right: 13px;
         }
+        // &:first-of-type{
+          // border-left: 1px solid #e5e5e5;
+        // }
         cursor: pointer;
         user-select: none;
         &.active{
           background-color: #fff;
-          box-shadow: 2px 2px 5px #888888;
+           .menu-status{
+             background-color: #018EED;
+           }
         }
         .close{
-          margin-left: 10px;
+          margin-left: 13px;
           font-size: 20px;
-          font-weight: lighter;
+          color: #BDBDBD;
           &:hover{
             color: #ccc;
           }

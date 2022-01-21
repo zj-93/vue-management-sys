@@ -10,10 +10,15 @@
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse"
+      :default-active="defaultActive"
+      :default-openeds="defaultOpeneds"
     >
       <template>
         <div v-for="(item, index) in menuList" :key="index">
-          <el-submenu :index="item.path" v-if="item.children && item.children.length > 1">
+          <el-submenu
+            :index="item.path"
+            v-if="item.children && item.children.length > 1"
+          >
             <template>
               <template slot="title">
                 <i class="el-icon-location"></i>
@@ -31,10 +36,17 @@
                       <span slot="title">{{ elm.name }}</span>
                       <el-menu-item
                         v-for="(el, index) in elm.children"
+                        :class="{
+                          'menu-active':
+                            curPath == `${item.path}/${elm.path}/${el.path}`,
+                        }"
                         :key="index"
                         :index="`${item.path}/${elm.path}/${el.path}`"
                         @click="
-                          handleSelect(`${item.path}/${elm.path}/${el.path}`, el.name)
+                          handleSelect(
+                            `${item.path}/${elm.path}/${el.path}`,
+                            el.name
+                          )
                         "
                         >{{ el.name }}</el-menu-item
                       >
@@ -43,6 +55,7 @@
 
                   <el-menu-item
                     v-else
+                    :class="{ 'menu-active': curPath == `${item.path}/${elm.path}` }"
                     :index="`${item.path}/${elm.path}`"
                     @click="handleSelect(`${item.path}/${elm.path}`, elm.name)"
                     >{{ elm.name }}</el-menu-item
@@ -52,7 +65,13 @@
             </template>
           </el-submenu>
           <template v-else>
-            <el-menu-item v-for="(elm, index) in item.children" :key="index" :index="elm.path" @click="handleSelect(`${elm.path}`, elm.name)">
+            <el-menu-item
+              v-for="(elm, index) in item.children"
+              :key="index"
+              :class="{ 'menu-active': curPath == `${elm.path}` }"
+              :index="elm.path"
+              @click="handleSelect(`${elm.path}`, elm.name)"
+            >
               <i class="el-icon-menu"></i>
               <span slot="title">{{ elm.name }}</span>
             </el-menu-item>
@@ -69,33 +88,61 @@ export default {
     return {
       isCollapse: false,
       menuList: [],
+      curPath: "",
+      defaultActive: "",
+      defaultOpeneds: [""],
     };
   },
   computed: {},
+  watch: {
+    $route: {
+      handler(to, from) {
+        this.curPath = to.path;
+        console.log(to);
+        
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
   mounted() {
+    // 初始化tab菜单栏缓存数据
+    if (sessionStorage.getItem("tabbar")) {
+      this.$store.commit(
+        "SET_BAR_LIST",
+        JSON.parse(sessionStorage.getItem("tabbar"))
+      );
+    } else {
+      this.$store.dispatch("addBarList", {
+        keyPath: this.$route.path,
+        key: this.$route.name,
+      });
+    }
     this.$store.dispatch("setDeptList").then((res) => {
       this.menuList = res;
     });
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath, "open");
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath, "close");
     },
     handleClick() {
       this.isCollapse = !this.isCollapse;
     },
     // 点击菜单，生成Tag标签集合
     handleSelect(keyPath, key) {
+      // 多窗口
       // 通过随机数生成动态路由
-      // let num = Math.random()
-      // this.$router.push({name: key, params: {id: num}})
+      let num = Math.random()
+      this.$router.push({name: key, params: {id: num}})
       // 将地址，名称，随机数存入vuex，标签点击时可以跳转回去
-      // this.$store.dispatch('setBarList', { keyPath, key, num})
-      this.$router.push({ name: key });
-      this.$store.dispatch("setBarList", { keyPath, key });
+      this.$store.dispatch('addBarList', { keyPath: keyPath.replace(':id', num), key, num})
+      // 单窗口
+      // this.$router.push({ name: key });
+      // this.$store.dispatch("addBarList", { keyPath, key });
     },
   },
 };
@@ -111,13 +158,20 @@ export default {
     z-index: 11;
     cursor: pointer;
     margin-right: 5px;
+    display: none;
   }
   & > .el-menu {
-    height: calc(100% - 40px);
-    padding-top: 40px;
+    height: 100%;
+    // padding-top: 40px;
+  }
+  .is-active {
+    color: #303133;
+  }
+  .menu-active {
+    color: #409eff;
   }
 }
-::v-deep .el-menu-vertical-demo:not(.el-menu--collapse) {
+/deep/ .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
 }

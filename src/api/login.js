@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function signUp(data) {
     return request({
-        url: '/api/signUp',
+        url: '/signUp',
         method: 'post',
         data
     })

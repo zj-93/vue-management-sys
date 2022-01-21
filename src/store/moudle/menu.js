@@ -18,8 +18,8 @@ const menu = {
                 const opts = router.options.routes
                 let temp = []
                 opts.forEach(elm => {
-                    if(elm.name != 'Login' && !elm.hidden) {
-                        if(elm.children && elm.children.length) {
+                    if (elm.name != 'Login' && !elm.hidden) {
+                        if (elm.children && elm.children.length) {
                             dispatch('menuHandle', elm.children).then(res => {
                                 elm.children = res
                                 temp.push(elm)
@@ -33,12 +33,15 @@ const menu = {
                 resolve(temp)
             })
         },
-        menuHandle({dispatch, commit}, item) {
+        menuHandle({
+            dispatch,
+            commit
+        }, item) {
             return new Promise((resolve, reject) => {
                 let temp = []
                 item.forEach(elm => {
-                    if(!elm.hidden) {
-                        if(elm.children && elm.children.length) {
+                    if (!elm.hidden) {
+                        if (elm.children && elm.children.length) {
                             dispatch('menuHandle', elm.children).then(res => {
                                 elm.children = res
                                 temp.push(elm)
