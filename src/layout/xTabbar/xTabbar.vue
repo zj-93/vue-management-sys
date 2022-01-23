@@ -25,7 +25,6 @@
       clickMenu(item) {
         // this.currentPath = item.keyPath;
         // this.$router.push(`${item.keyPath}`);.
-        debugger
         // this.$router.push({name: item.key, params: {id: item.num}})
         this.$router.push({path: item.keyPath})
       },
@@ -50,7 +49,6 @@
         return (d >= 0 && str.lastIndexOf(endStr) == d)
       },
       activeFlag(path){
-        debugger
         // currentPath.indexOf(item.path) > -1
         if(path === this.currentPath) {
           return true

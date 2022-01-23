@@ -5,12 +5,17 @@
 </template>
 
 <script>
+import { getUser} from '@/api/login'
+
 export default {
+  
   components: {},
   data() {
     return {};
   },
-  mounted() {},
+  mounted() {
+    getUser()
+  },
   methods: {},
 };
 </script>

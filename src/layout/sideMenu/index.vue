@@ -98,8 +98,6 @@ export default {
     $route: {
       handler(to, from) {
         this.curPath = to.path;
-        console.log(to);
-        
       },
       immediate: true,
       deep: true,

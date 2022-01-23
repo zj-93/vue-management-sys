@@ -15,7 +15,6 @@ const tabBar = {
             // }
             // sessionStorage.setItem("tabbar", JSON.stringify(state.barList));
             // 每个标签都可以重复打开多个
-            debugger
             if(state.moreMenuList.includes(content.key)) {
                 state.barList.push(content)
             } else {

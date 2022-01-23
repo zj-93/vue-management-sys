@@ -229,7 +229,6 @@ export default {
   watch: {
     defaultList: {
       handler(val) {
-        console.log(val, 1111);
         if (val.length) {
           val.forEach((row) => {
             this.$refs.elTable.toggleRowSelection(row);

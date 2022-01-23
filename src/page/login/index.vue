@@ -62,7 +62,7 @@ export default {
         ...this.ruleForm
       }
       this.$store.dispatch('Login', params).then(res => {
-        console.log(res)
+        this.$router.push({name: 'Home'})
       })
       
     },

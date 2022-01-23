@@ -15,3 +15,11 @@ export function signIn(data) {
         data
     })
 }
+
+export function getUser(data) {
+    return request({
+        url: '/getUser',
+        method: 'post',
+        data
+    })
+}

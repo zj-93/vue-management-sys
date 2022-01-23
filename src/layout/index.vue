@@ -26,9 +26,6 @@
             </el-dropdown-menu>
           </el-dropdown>
         </div>
-        <div class="sys-setting" v-if="fullList.includes(key)">
-          <span class="sys-name" @click="fullScreen">投屏</span>
-        </div>
       </div>
     </header>
     <div class="app-bottom">
