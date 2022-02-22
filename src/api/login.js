@@ -16,6 +16,14 @@ export function signIn(data) {
     })
 }
 
+export function resetToken(data) {
+    return request({
+        url: '/resetToken',
+        method: 'post',
+        data
+    })
+}
+
 export function getUser(data) {
     return request({
         url: '/getUser',

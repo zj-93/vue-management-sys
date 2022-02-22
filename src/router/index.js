@@ -55,8 +55,8 @@ const routes = [
       icon: 'example'
     },
     children: [{
-        // path: 'form',
-        path: 'form/:id', // 用于多tag
+        path: 'form',
+        // path: 'form/:id', // 用于多tag
         name: 'Form',
         component: () => import('@/page/form.vue'),
         meta: {

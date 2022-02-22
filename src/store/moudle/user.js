@@ -1,5 +1,4 @@
-import { signIn } from '@/api/login'
-import { setToken } from '@/utils/auth'
+import { signIn, resetToken } from '@/api/login'
 
 const user = {
     state: {
@@ -26,6 +25,14 @@ const user = {
         },
         LoginOut({commit}, content) {
 
+        },
+        resetLogin({commit}, content) {
+            resetToken().then(res => {
+                if(res) {
+                    sessionStorage.setItem('token', res.data.token)
+                    resolve(res)
+                }
+            })
         }
     }
 }

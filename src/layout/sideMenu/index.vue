@@ -7,6 +7,11 @@
     ></i>
     <el-menu
       class="el-menu-vertical-demo"
+      mode="horizontal"
+      menu-trigger="hover"
+      background-color="#ffff"
+      text-color="#999"
+      active-text-color="#1890FF"
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse"
@@ -55,7 +60,9 @@
 
                   <el-menu-item
                     v-else
-                    :class="{ 'menu-active': curPath == `${item.path}/${elm.path}` }"
+                    :class="{
+                      'menu-active': curPath == `${item.path}/${elm.path}`,
+                    }"
                     :index="`${item.path}/${elm.path}`"
                     @click="handleSelect(`${item.path}/${elm.path}`, elm.name)"
                     >{{ elm.name }}</el-menu-item
@@ -134,10 +141,14 @@ export default {
     handleSelect(keyPath, key) {
       // 多窗口
       // 通过随机数生成动态路由
-      let num = Math.random()
-      this.$router.push({name: key, params: {id: num}})
+      let num = Math.random();
+      this.$router.push({ name: key, params: { id: num } });
       // 将地址，名称，随机数存入vuex，标签点击时可以跳转回去
-      this.$store.dispatch('addBarList', { keyPath: keyPath.replace(':id', num), key, num})
+      this.$store.dispatch("addBarList", {
+        keyPath: keyPath.replace(":id", num),
+        key,
+        num,
+      });
       // 单窗口
       // this.$router.push({ name: key });
       // this.$store.dispatch("addBarList", { keyPath, key });
@@ -160,17 +171,25 @@ export default {
   }
   & > .el-menu {
     height: 100%;
-    // padding-top: 40px;
-  }
-  .is-active {
-    color: #303133;
-  }
-  .menu-active {
-    color: #409eff;
+    & > div {
+      display: inline-block;
+    }
+    ::v-deep .el-submenu__icon-arrow {
+      position: relative;
+      top: 0;
+      left: 3px;
+      margin-top: 0;
+    }
   }
 }
-/deep/ .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
+::v-deep .el-submenu__title {
+  &:hover {
+    background-color: #f5f5f5 !important;
+  }
+}
+::v-deep .el-menu-item {
+  &:hover {
+    background-color: #f5f5f5 !important;
+  }
 }
 </style>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
+import  router  from '@/router'
 import { getToken } from '@/utils/auth'
 
 // create an axios instance
@@ -19,7 +20,6 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
     return Promise.reject(error)
   }
 )
@@ -48,17 +48,23 @@ service.interceptors.response.use(
       })
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      if (res.code === 50014) {
         // to re-login
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
           confirmButtonText: 'Re-Login',
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
+          store.dispatch('resetLogin').then(() => {
             location.reload()
           })
+        }).catch(() => {
+          sessionStorage.removeItem('token')
+          router.push({name: 'Login'})
         })
+      } else if(res.code === 50008 || res.code === 50012 ) {
+        sessionStorage.removeItem('token')
+        router.push({name: 'Login'})
       }
       return Promise.reject(new Error(res.data || 'Error'))
     } else {
