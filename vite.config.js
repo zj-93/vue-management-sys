@@ -2,6 +2,9 @@ import {
   createVuePlugin
 } from 'vite-plugin-vue2'
 import path from "path"
+
+import legacy from '@vitejs/plugin-legacy'
+
 const defaultSettings = require('./src/settings.js')
 
 const name = defaultSettings.title || 'vue Admin Template' // page title
@@ -42,5 +45,11 @@ export default {
       }
     }
   },
-  plugins: [createVuePlugin()],
+  build: {
+    target:['es2015'],
+    chunkSizeWarningLimit: 2000
+  },
+  plugins: [createVuePlugin(), legacy({
+    target: ['ie 11']
+  })],
 }

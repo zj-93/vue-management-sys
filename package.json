@@ -10,11 +10,13 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^1.7.1",
     "css-loader": "^6.5.1",
     "vite": "^2.6.4"
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "babel-polyfill": "^6.26.0",
     "element-ui": "^2.15.6",
     "js-cookie": "^3.0.1",
     "less": "^4.1.2",
